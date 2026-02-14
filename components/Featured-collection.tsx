@@ -31,10 +31,10 @@ const FeaturedCollection = () => {
 
     return ( 
         <>
-          <section>
+          <section className="mt-10">
             <div className="text-center">
-                <h2>Featured Collection</h2>
-                <p>Handpcked pieces that exemplify our commitment to quality and design</p>
+                <h2 className="text-black ">Featured Collection</h2>
+                <p className="text-gray-700">Handpcked pieces that exemplify our commitment to quality and design</p>
              </div>
 
              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 p-6">
@@ -55,7 +55,7 @@ const FeaturedCollection = () => {
                     </div>
                 ))}
                 </div>
-                <button className="flex p-2 border m-auto">View All Products  <ChevronRight/></button>
+                <button className="flex p-2 border m-auto rounded-xl hover:border-amber-400">View All Products  <ChevronRight/></button>
           </section>
          
           <section className="py-12 bg-gray-50">
