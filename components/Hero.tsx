@@ -1,29 +1,39 @@
-import { ChevronRight } from "lucide-react";
-import Link from "next/link";
+import { ChevronRight } from "lucide-react"
+import Link from "next/link"
 
 const Hero = () => {
-    return (
-      <div 
-        className="relative h-180 bg-cover bg-center  flex flex-col justify-center items-center text-white text-center"
-        style={{ backgroundImage: "url('/necklace.jpg')" }}
-      >
-      
-        {/* Text content */}
-        <div className="relative z-10">
-          <h1 className="text-5xl font-bold mb-4 text-black">Timeless Elegance</h1>
-          <p className="mb-6 text-gray-800">Discover our curated collection of exquisite jewelry pieces</p>
-         
-          <Link
-            href="/products"
-            className="flex bg-amber-500 p-3 text-2xl items-center justify-center mt-3 font-bold rounded-xl w-fit mx-auto"
-          >
-            Shop Collection
-            <ChevronRight size={30} className="ml-2" />
-          </Link>      
-        </div>
+  return (
+    <section
+      className="relative min-h-[78vh] flex items-center justify-center bg-cover bg-center"
+      style={{ backgroundImage: "url('/necklace.jpg')" }}
+    >
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-black/30" />
+
+      {/* Content */}
+      <div className="relative z-10 text-center px-6 max-w-2xl text-white">
+
+        <h1 className="text-4xl sm:text-5xl md:text-6xl font-semibold leading-tight">
+          Timeless Elegance
+        </h1>
+
+        <p className="mt-6 text-base sm:text-lg text-gray-200">
+          Discover refined pieces crafted to elevate your everyday style.
+        </p>
+
+        <Link
+          href="/products"
+          className="inline-flex items-center gap-2 mt-8 px-6 py-3 
+                     bg-white text-black text-sm font-medium 
+                     rounded-md hover:bg-gray-200 transition"
+        >
+          Shop Collection
+          <ChevronRight size={18} />
+        </Link>
+
       </div>
-    );
-  };
-  
-  export default Hero;
-  
+    </section>
+  )
+}
+
+export default Hero

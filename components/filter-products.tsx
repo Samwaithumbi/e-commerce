@@ -1,102 +1,92 @@
 "use client"
 
-import { SlidersHorizontal } from 'lucide-react';
-import Image from 'next/image';
-import { jewelryProducts } from '@/_lib/jewelry';
-import { useState } from "react";
+import { SlidersHorizontal } from 'lucide-react'
+import Image from 'next/image'
+import { jewelryProducts } from '@/_lib/jewelry'
+import { useState } from "react"
+import Link from 'next/link'
 
 type CategoryType ={
-    id:number;
-    category:string
+  id:number
+  category:string
 }
 
 const categories:CategoryType[] = [
-    {  
-        id:1,
-        category:"All"
-    },
-     {
-        id:2,
-        category:"Rings"
-    },{
-        id:3,
-        category:"Necklaces"
-    },{
-        id:4,
-        category:"Bracelets"
-    },{
-        id:5,
-        category:"Earrings"
-    }
+  { id:1, category:"All" },
+  { id:2, category:"Rings" },
+  { id:3, category:"Necklaces" },
+  { id:4, category:"Bracelets" },
+  { id:5, category:"Earrings" }
 ]
 
 const Filter = () => {
+  const [selectedCategory, setSelectedCategory] = useState("All")
 
-    const [selectedCategory, setSelectedCategory] = useState("All");
-    return ( 
-        <>
-          <div className='mx-3 text-black'>
-           
-            <div className="flex items-center gap-2 mt-3">
-                <SlidersHorizontal size={18} className="text-gray-600" />
-                <h3 className="text-sm font-semibold text-gray-800 tracking-wide uppercase">
-                Filter by Category
-                </h3>
+  // Filter products based on category
+  const filteredProducts = selectedCategory === "All"
+    ? jewelryProducts
+    : jewelryProducts.filter(p => p.category === selectedCategory)
+
+  return (
+    <section className="max-w-6xl mx-auto px-6 py-12">
+
+      {/* Filter Header */}
+      <div className="mb-6 flex items-center gap-2">
+        <SlidersHorizontal size={18} className="text-gray-600" />
+        <h3 className="text-sm font-semibold text-gray-800 tracking-wide uppercase">
+          Filter by Category
+        </h3>
+      </div>
+
+      {/* Category Buttons */}
+      <div className="flex flex-wrap gap-3 overflow-x-auto pb-2 scrollbar-thin">
+        {categories.map(item => {
+          const isActive = selectedCategory === item.category
+          return (
+            <button
+              key={item.id}
+              onClick={() => setSelectedCategory(item.category)}
+              className={`
+                px-4 py-2 rounded-full font-medium whitespace-nowrap
+                transition-all duration-200
+                border
+                ${isActive
+                  ? "bg-black text-white border-black"
+                  : "bg-white text-gray-700 border-gray-300 hover:bg-gray-100"}
+                focus:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2
+              `}
+            >
+              {item.category}
+            </button>
+          )
+        })}
+      </div>
+
+      {/* Products Grid */}
+      <div className="grid gap-8 mt-8 sm:grid-cols-2 md:grid-cols-3">
+        {filteredProducts.map(product => (
+          <Link
+            key={product.id}
+            href={`/products/${product.slug}`}
+            className="group block rounded-xl overflow-hidden shadow-sm hover:shadow-md transition"
+          >
+            <div className="relative aspect-square">
+              <Image
+                src={product.image}
+                alt={product.name}
+                fill
+                className="object-cover transition-transform duration-500 group-hover:scale-105 rounded-xl"
+              />
             </div>
-
-            <div
-    className="flex flex-wrap gap-3 overflow-x-auto pb-2 scrollbar-thin"
-    role="group"
-    aria-label="Product categories"
-  >
-    {categories.map((item) => {
-      const isActive = selectedCategory === item.category;
-
-      return (
-        <button
-          key={item.id || item.category}
-          onClick={() => setSelectedCategory(item.category)}
-          className={`
-            px-4 py-2 rounded-full text-lg font-medium whitespace-nowrap
-            transition-all duration-200
-            border 
-            ${
-              isActive
-                ? "bg-yellow-600 text-white "
-                : "bg-white  border-gray-300 hover:bg-gray-600"
-            }
-            focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-900 focus-visible:ring-offset-2
-          `}
-        >
-          {item.category}
-        </button>
-      );
-    })}
-  </div>
+            <div className="mt-4">
+              <h3 className="font-medium text-lg">{product.name}</h3>
+              <p className="text-gray-700 font-semibold">${product.price.toFixed(2)}</p>
             </div>
-
-            
-             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 p-6">
-                {jewelryProducts.map((product) => (
-                    <div
-                    key={product.id}
-                    className="border rounded-lg p-4 shadow hover:shadow-md transition"
-                    >
-                    <Image
-                        src={product.image}
-                        alt={product.name}
-                        width={300}
-                        height={300}
-                        className="w-full h-40 object-cover rounded"
-                    />
-                    <h3 className="mt-2 font-semibold">{product.name}</h3>
-                    <p className="text-gray-600">${product.price}</p>
-                    </div>
-                ))}
-                </div>
-          
-        </>
-     );
+          </Link>
+        ))}
+      </div>
+    </section>
+  )
 }
- 
-export default Filter;
+
+export default Filter

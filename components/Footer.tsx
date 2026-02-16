@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Facebook, Instagram, Twitter, Mail, Phone, MapPin } from "lucide-react";
+import { Mail, Phone, MapPin } from "lucide-react";
 
 type FooterLink = {
   label: string;
@@ -30,15 +30,6 @@ const footerSections: FooterSection[] = [
       { label: "Blog", href: "#" },
     ],
   },
-  {
-    title: "Support",
-    links: [
-      { label: "FAQs", href: "#" },
-      { label: "Shipping & Returns", href: "#" },
-      { label: "Privacy Policy", href: "#" },
-      { label: "Terms of Service", href: "#" },
-    ],
-  },
 ];
 
 export default function Footer() {
@@ -48,7 +39,7 @@ export default function Footer() {
         
         {/* Brand + Contact */}
         <div className="space-y-4">
-          <h2 className="text-2xl font-bold text-white">LuxeJewels</h2>
+          <h2 className="text-2xl font-bold text-white">ReyJewels</h2>
           <p className="text-sm text-gray-400">
             Premium jewelry crafted for elegance and timeless beauty.
           </p>
@@ -61,7 +52,7 @@ export default function Footer() {
               <Phone size={16} /> +254 700 000 000
             </div>
             <div className="flex items-center gap-2">
-              <Mail size={16} /> support@luxejewels.com
+              <Mail size={16} /> support@reyjewels.com
             </div>
           </div>
         </div>

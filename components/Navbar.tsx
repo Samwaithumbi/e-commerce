@@ -1,40 +1,84 @@
 "use client"
 
-import { ShoppingCart, Menu, X } from "lucide-react";
-import { useState } from "react";
-import Link from "next/link";
+import { ShoppingBag, Menu, X } from "lucide-react"
+import { useState } from "react"
+import Link from "next/link"
 
 const Navbar = () => {
-  const [isMenuOpen, setIsMenuOpen]=useState(false)
+  const [isOpen, setIsOpen] = useState(false)
+
   return (
-    <header className="bg-white shadow-md sticky top-0 z-50 border-b-2 border-amber-950">
-      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
+    <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
+      
+      <nav className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+
         {/* Logo */}
-        <h1 className="text-2xl font-bold text-gray-800">REY</h1>
+        <Link href="/" className="text-2xl font-semibold tracking-wide">
+          REY
+        </Link>
+
+        {/* Desktop Links */}
+        <div className="hidden md:flex items-center gap-8 text-sm font-medium">
+          <Link href="/" className="hover:text-gray-600 transition">
+            Home
+          </Link>
+          <Link href="/products" className="hover:text-gray-600 transition">
+            Shop
+          </Link>
+          <Link href="/" className="hover:text-gray-600 transition">
+            Collections
+          </Link>
+          <Link href="/" className="hover:text-gray-600 transition">
+            Account
+          </Link>
+        </div>
 
         {/* Icons */}
-        <div className="flex items-center space-x-4">
-          <ShoppingCart size={28} className="text-gray-700 hover:text-gray-900 cursor-pointer transition " />
-          {isMenuOpen?
-               <X  size={28} className="text-gray-700 hover:text-amber-300 cursor-pointer transition" onClick={() => setIsMenuOpen(!isMenuOpen)}  /> 
-               :<Menu size={28} className="text-gray-700 hover:text-gray-900 cursor-pointer transition" onClick={() => setIsMenuOpen(!isMenuOpen)} />
-          }
-         
-        </div>
+        <div className="flex items-center gap-5">
 
+          {/* Cart */}
+          <Link href="/cart" className="relative">
+            <ShoppingBag className="w-6 h-6 hover:text-gray-600 transition" />
+            
+            {/* Cart Badge */}
+            <span className="absolute -top-2 -right-2 bg-black text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
+              2
+            </span>
+          </Link>
+
+          {/* Mobile Menu Toggle */}
+          <button
+            className="md:hidden"
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label="Toggle Menu"
+          >
+            {isOpen ? <X /> : <Menu />}
+          </button>
+
+        </div>
       </nav>
-      <div className="px-2 text-black" >
-          { isMenuOpen &&(
-              <ul className="space-y-2">
-                <li><Link href="/"onClick={() => setIsMenuOpen(!isMenuOpen)} className=" hover:text-yellow-300 ">Home</Link></li>
-                <li><Link href="/products" onClick={() => setIsMenuOpen(!isMenuOpen)}>Shop</Link></li>
-                <li><Link href="/" onClick={() => setIsMenuOpen(!isMenuOpen)}>Collections</Link></li>
-                <li><Link href="/"onClick={() => setIsMenuOpen(!isMenuOpen)} >Account</Link></li>
-              </ul>
-           )}
-        </div>
-    </header>
-  );
-};
 
-export default Navbar;
+      {/* Mobile Drawer */}
+      {isOpen && (
+        <div className="md:hidden border-t border-gray-200 bg-white">
+          <div className="px-6 py-6 space-y-6 text-sm font-medium">
+            <Link href="/" onClick={() => setIsOpen(false)} className="block">
+              Home
+            </Link>
+            <Link href="/products" onClick={() => setIsOpen(false)} className="block">
+              Shop
+            </Link>
+            <Link href="/" onClick={() => setIsOpen(false)} className="block">
+              Collections
+            </Link>
+            <Link href="/" onClick={() => setIsOpen(false)} className="block">
+              Account
+            </Link>
+          </div>
+        </div>
+      )}
+    </header>
+  )
+}
+
+export default Navbar
