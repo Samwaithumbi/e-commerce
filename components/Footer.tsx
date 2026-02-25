@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Mail, Phone, MapPin } from "lucide-react";
+import {  Mail, Phone, MapPin } from "lucide-react";
 
 type FooterLink = {
   label: string;
