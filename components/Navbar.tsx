@@ -1,11 +1,13 @@
 "use client"
 
-import { ShoppingBag, Menu, X } from "lucide-react"
+import { ShoppingBag, Menu, X, User } from "lucide-react"
 import { useState } from "react"
 import Link from "next/link"
+import { useSession, signOut } from "next-auth/react"
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
+  const { data: session, status } = useSession()
 
   return (
     <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
@@ -35,7 +37,9 @@ const Navbar = () => {
 
         {/* Icons */}
         <div className="flex items-center gap-5">
-
+            <Link href="/login">
+               <User/>
+            </Link>
           {/* Cart */}
           <Link href="/cart" className="relative">
             <ShoppingBag className="w-6 h-6 hover:text-gray-600 transition" />

@@ -3,9 +3,9 @@ import FeaturedCollection from "@/components/Featured-collection";
 
 export default function Home() {
   return (
-    
     <>
     <div>
+      
          <Hero/>
          <FeaturedCollection/>
          

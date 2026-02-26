@@ -4,10 +4,10 @@ import { useState } from "react"
 import Link from "next/link"
 import { signIn } from "next-auth/react"
 import { useRouter } from "next/navigation"
+import SignInWithGoogle from "@/components/ui/signInWithGoogle"
 
-const Login=()=> {
+const LoginForm = () => {
   const router = useRouter()
-
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [loading, setLoading] = useState(false)
@@ -37,21 +37,29 @@ const Login=()=> {
     <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
       <div className="w-full max-w-md bg-white p-8 rounded-xl shadow">
         <h1 className="text-3xl font-bold text-center">REY</h1>
-        <p className="text-center text-gray-600 mt-2">
-          Sign in to your account
-        </p>
+        <p className="text-center text-gray-600 mt-2">Sign in to your account</p>
 
-        <form onSubmit={handleSubmit} className="mt-6 space-y-5">
+        <div className="mt-6">
+          <SignInWithGoogle />
+        </div>
+
+        <div className="relative my-6">
+          <div className="absolute inset-0 flex items-center">
+            <div className="w-full border-t border-gray-300" />
+          </div>
+          <div className="relative flex justify-center text-sm">
+            <span className="bg-white px-2 text-gray-500">or</span>
+          </div>
+        </div>
+
+        <form onSubmit={handleSubmit} className="space-y-5">
           {error && (
             <div className="bg-red-100 text-red-600 p-3 rounded text-sm">
               {error}
             </div>
           )}
-
           <div>
-            <label htmlFor="email" className="block text-sm font-medium">
-              Email
-            </label>
+            <label htmlFor="email" className="block text-sm font-medium">Email</label>
             <input
               id="email"
               type="email"
@@ -63,11 +71,8 @@ const Login=()=> {
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
-
           <div>
-            <label htmlFor="password" className="block text-sm font-medium">
-              Password
-            </label>
+            <label htmlFor="password" className="block text-sm font-medium">Password</label>
             <input
               id="password"
               type="password"
@@ -79,7 +84,6 @@ const Login=()=> {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-
           <button
             type="submit"
             disabled={loading}
@@ -90,7 +94,7 @@ const Login=()=> {
         </form>
 
         <div className="mt-6 text-center text-sm">
-          Don’t have an account?{" "}
+          Don't have an account?{" "}
           <Link href="/register" className="font-semibold underline">
             Create one
           </Link>
@@ -99,4 +103,5 @@ const Login=()=> {
     </div>
   )
 }
-export default Login;
+
+export default LoginForm
